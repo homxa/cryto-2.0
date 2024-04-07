@@ -15,7 +15,7 @@ const Home = () => {
         <p className="text-lg mb-4 text">Point Program:</p>
         <p className="text-lg mb-4 text">Earn 10 points per unique engagement in our app, such as reading news articles or watching videos. To earn points, you must spend at least 1 minute on each page before leaving.</p>
         <p className="text-lg mb-4 text">Participate actively in our app to accumulate points and become eligible for our exclusive airdrop!</p>
-        <button className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-md font-bold transition-colors duration-300">Get Started</button>
+        <a href='points' className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-md font-bold transition-colors duration-300">Get Started</a>
       </div>
       <div className="container mx-auto p-8">
         <div className="flex justify-between items-center">
