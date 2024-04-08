@@ -1,11 +1,25 @@
-import { BsTwitterX } from "react-icons/bs";
-import { BiLogoTelegram } from "react-icons/bi";
-import { BsDiscord } from "react-icons/bs";
-import Navbar from "../loggin_succ/navbar";
+
+
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
+// checking if the user is logind to return to Home page
+
+  const userId = localStorage.getItem('userId')
+
+  if(userId){
+    return <Navigate to='/home'/>
+  }
+  
   return (
     <>
+    
+
+
+
+
+
+
     <div className="bg-black text-white min-h-screen font-sans">
       <div className="container mx-auto p-8">
         <h1 className="text-4xl font-bold mb-8 header">Welcome to Crypto 2.0</h1>
@@ -22,36 +36,7 @@ const Home = () => {
         <a href='login' className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-md font-bold transition-colors duration-300">Get Started</a>
       </div>
 
-      {/* Join Our Community */}
-      <div className="bg-black text-white font-sans">
-        <div className="container mx-auto p-8">
-          <h2 className="text-2xl font-bold mb-4 header">Join Our Community</h2>
-          <div className="flex items-center mb-4">
-            <a href="#" className="mr-4">
-              <BsTwitterX size={30} />
-            </a>
-            <a href="#" className="mr-4">
-              <BiLogoTelegram size={38} />
-            </a>
-            <a href="#">
-              <BsDiscord size={38} />
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Additional Links */}
-      <div className="bg-black text-white font-sans">
-        <div className="container mx-auto p-8 flex flex-col sm:flex-row justify-between">
-          <div>
-            <a href="#" className="mr-4 text">Contact Us</a>
-            <a href="# text">Terms of Use</a>
-          </div>
-          <div className="mt-4 sm:mt-0">
-            <p className="text-sm">&copy; {new Date().getFullYear()} Crypto 2.0. All rights reserved.</p>
-          </div>
-        </div>
-      </div>
+     
     </div>
     </>
   );

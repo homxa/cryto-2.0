@@ -1,7 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { auth } from '../auth/cofig/config';
 
 const Leaderboard = () => {
+// checking if the user is login elase return to login page
+
+  const userId = localStorage.getItem('userId')
+
+  if(!auth.currentUser?.uid && !userId){
+    return <Navigate to='/'/>
+  }
+
+
   // Sample leaderboard data
   const [currentUser, setCurrentUser] = useState({ name: "John Doe", imageUrl: "https://via.placeholder.com/50" });
   const [leaderboardData, setLeaderboardData] = useState([

@@ -1,9 +1,32 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { BsTwitterX } from "react-icons/bs";
 import { BiLogoTelegram } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
+import { auth } from '../auth/cofig/config';
+import { signOut } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess } from '../auth/redux/slices/authSlice';
 
-const Home = () => {
+const Homes = () => {
+const dispach = useDispatch()
+const nav = useNavigate()
+// checking if the user is login elase return to login page
+const userId = localStorage.getItem('userId')
+
+if(!auth.currentUser?.uid && !userId){
+  return <Navigate to='/'/>
+}
+  const signOUt = async()=>{
+try {
+  await signOut(auth)
+  dispach(loginSuccess(null))
+  localStorage.removeItem('userId')
+  nav('/')
+  
+} catch (error) {
+  console.log('failed to logout', error)
+}
+  }
   return (
     <div className="bg-black text-white min-h-screen font-sans">
    
@@ -31,9 +54,10 @@ const Home = () => {
         </div>
         <p className="text-sm">&copy; {new Date().getFullYear()} Crypto 2.0. All rights reserved.</p>
       </div>
+      <button onClick={signOUt}>logout</button>
     </div>
   );
 };
 
-export default Home;
+export default Homes;
 

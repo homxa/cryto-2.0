@@ -1,15 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../auth/cofig/config";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../auth/redux/slices/authSlice";
 const Login = () => {
+// checking if the user is logind to return Home page
+
+  const userId = localStorage.getItem('userId')
+
+  if(userId){
+    return <Navigate to='/home'/>
+  }
+
   // schemas for froma validaton
   const [disableBtn, setdisableBtn] = useState<boolean>(false);
   const [login, setLogin] = useState<boolean>(false);
   const [err, setErr] = useState(false)
+  const nav = useNavigate()
+  const dispach = useDispatch()
 
   const schema = yup.object().shape({
     email: yup
@@ -40,9 +52,13 @@ const Login = () => {
     setdisableBtn(true);
     setLogin(true);
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+    const current =  await signInWithEmailAndPassword(auth, data.email, data.password);
       setdisableBtn(false);
       setLogin(false);
+      localStorage.setItem('userId',current.user.uid)
+      
+      dispach(loginSuccess(current.user.uid))
+      nav('/home')
       return;
     } catch (error) {
       console.log(error);
@@ -57,18 +73,7 @@ const Login = () => {
   return (
     <>
       {/* Navigation Bar */}
-      <nav className="bg-black p-4">
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center">
-            <Link
-              to="/"
-              className="text-white font-bold text-lg lg:text-xl header"
-            >
-              Crypto 2.0
-            </Link>
-          </div>
-        </div>
-      </nav>
+    
 
       {/* Login Form */}
       <div className="bg-black text-white min-h-screen font-sans">
@@ -76,7 +81,7 @@ const Login = () => {
           <h1 className="text-4xl font-bold mb-8 header">
             Login to Your Crypto 2.0 Account
           </h1>
-          <p className="text-red-500 mb-4">{err ? 'User already exists' : ''}</p>
+          <p className="text-red-500 mb-4">{err ? 'incorrect password!' : ''}</p>
 
           <form className="max-w-sm" onSubmit={handleSubmit(sumitData)}>
             <div className="mb-4">

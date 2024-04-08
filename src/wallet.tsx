@@ -1,8 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { BsWallet } from "react-icons/bs";
 import { MdStars } from "react-icons/md";
+import { auth } from './auth/cofig/config';
 
 const Wallet = () => {
+// checking if the user is login elase return to login page
+
+  const userId = localStorage.getItem('userId')
+
+  if(!auth.currentUser?.uid && !userId){
+    return <Navigate to='/'/>
+  }
+
   const balance = 500; // Assuming the user's current balance is $500
 
   const handleWithdrawal = () => {

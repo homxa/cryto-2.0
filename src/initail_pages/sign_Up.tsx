@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,15 +16,24 @@ import {
   where,
 } from "firebase/firestore";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../auth/redux/slices/authSlice";
 
 const SignUp = () => {
-  console.log(auth?.currentUser);
+// checking if the user is logind  return to Home page
+
+  const userId = localStorage.getItem('userId')
+
+  if(userId){
+    return <Navigate to='/home'/>
+  }
+
 
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [creating, setCreating] = useState<boolean>(false);
   const [err, setErr] = useState(false)
-
-
+const nav = useNavigate()
+const dispach = useDispatch()
   //validation checking
   const schema = yup.object().shape({
     userName: yup.string().required("Please Enter Your User Name").max(8),
@@ -93,7 +102,7 @@ const SignUp = () => {
       return false;
     }
   };
-
+// updating user point in db
   const updateReferrerReferrals = async (referrerCode: any) => {
     try {
       const userDocCollection = collection(db, "userProfiles");
@@ -160,9 +169,12 @@ const SignUp = () => {
       if (referrerCode) {
         await updateReferrerReferrals(referrerCode);
       }
+      localStorage.setItem('userId',currentUser.user.uid)
 
       console.log("User account created successfully");
+      dispach(loginSuccess(currentUser.user.uid))
 
+nav('/home')
       return;
     } catch (error) {
       console.error("Error creating user account:", error);

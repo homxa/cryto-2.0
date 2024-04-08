@@ -1,8 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { MdStars } from "react-icons/md";
 import { BiUser } from "react-icons/bi";
+import { auth } from '../auth/cofig/config';
 
 const Points = () => {
+// checking if the user is login elase return to login page
+
+const userId = localStorage.getItem('userId')
+
+if(!auth.currentUser?.uid && !userId){
+  return <Navigate to='/'/>
+}
   const points = 100; // Assuming the user has 100 points
   const referrals = 5; // Assuming the user has referred 5 people
 

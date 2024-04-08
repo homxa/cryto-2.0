@@ -1,48 +1,50 @@
 
 
 import './index.css'
-import Home from './initail_pages/home'
-import Homes from './loggin_succ/homes'
 
-import Navbar from './loggin_succ/navbar'
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
+
+import { useSelector } from 'react-redux'
+
+import Home from './initail_pages/home'
 import Login from './initail_pages/login'
+import SignUp from './initail_pages/sign_Up'
 import Signup from './loggin_succ/redirect'
+import { Navbars } from './initail_pages/navbar'
+import Homes from './loggin_succ/homes'
 import Points from './loggin_succ/point'
 import Wallet from './wallet'
 import Leaderboard from './loggin_succ/leaderboard'
-import SignUp from './initail_pages/sign_Up'
-import { Provider } from 'react-redux'
-import {store} from './auth/redux/store'
+import Navbar from './loggin_succ/navbar'
+import { Footer } from './footer/footer'
 function App() {
+  const userIds = localStorage.getItem('userId')
+  const {userId} = useSelector((state:any)=> state.auth)
 
   return (
-    <Provider store={store}>
 
    <Router>
-  <Navbar/> 
-<Routes>
-  <Route path='/' element={<Home/>}/>
-  <Route path='/login' element={<Login/>}/>
+{/* conditionally rendering navbr base on the user status */}
+   {userIds || userId ? <Navbar/>:   <Navbars/>}
+  
+  <Routes>
+
+    <Route path='/' element={<Home/>}/>
+    <Route path='/login' element={<Login/>}/>
+  <Route path='/signup' element={<SignUp/>}/>
+
+  <Route path='/redirect' element={<Signup/>}/>
   <Route path='/redirect' element={<Signup/>}/>
   <Route path='/home' element={< Homes/>}/>
   <Route path='/points' element={< Points/>}/>
   <Route path='/wallet' element={< Wallet/>}/>
   <Route path='/leaderboard' element={<Leaderboard/>}/>
-  <Route path='/signup' element={<SignUp/>}/>
+  </Routes>
 
-
-
-
-
-
-
-</Routes>
-
+  
 
    </Router>
   
-    </Provider>
   )
 }
 
