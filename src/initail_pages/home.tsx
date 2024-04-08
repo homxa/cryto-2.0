@@ -1,7 +1,7 @@
 import { BsTwitterX } from "react-icons/bs";
 import { BiLogoTelegram } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
-import Navbar from "./navbar";
+import Navbar from "../loggin_succ/navbar";
 
 const Home = () => {
   return (
