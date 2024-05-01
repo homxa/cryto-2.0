@@ -1,10 +1,10 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import {  Navigate, useNavigate } from 'react-router-dom';
 import { BsTwitterX } from "react-icons/bs";
 import { BiLogoTelegram } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
 import { auth } from '../auth/cofig/config';
 import { signOut } from 'firebase/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, } from 'react-redux';
 import { loginSuccess } from '../auth/redux/slices/authSlice';
 
 const Homes = () => {

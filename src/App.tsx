@@ -16,7 +16,7 @@ import Points from './loggin_succ/point'
 import Wallet from './wallet'
 import Leaderboard from './loggin_succ/leaderboard'
 import Navbar from './loggin_succ/navbar'
-import { Footer } from './footer/footer'
+
 function App() {
   const userIds = localStorage.getItem('userId')
   const {userId} = useSelector((state:any)=> state.auth)

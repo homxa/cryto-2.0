@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { MdStars } from "react-icons/md";
 import { BiUser } from "react-icons/bi";
 import { auth } from '../auth/cofig/config';

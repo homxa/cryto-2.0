@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import {  Navigate } from 'react-router-dom';
 import { auth } from '../auth/cofig/config';
 
 const Leaderboard = () => {
@@ -13,8 +13,8 @@ const Leaderboard = () => {
 
 
   // Sample leaderboard data
-  const [currentUser, setCurrentUser] = useState({ name: "John Doe", imageUrl: "https://via.placeholder.com/50" });
-  const [leaderboardData, setLeaderboardData] = useState([
+  const [currentUser, ] = useState({ name: "John Doe", imageUrl: "https://via.placeholder.com/50" });
+  const [leaderboardData,] = useState([
     { rank: 1, name: " Doe", points: 1000, imageUrl: "https://via.placeholder.com/50" },
     { rank: 2, name: "Jane Smith", points: 850, imageUrl: "https://via.placeholder.com/50" },
     { rank: 3, name: "Alice Johnson", points: 750, imageUrl: "https://via.placeholder.com/50" },
