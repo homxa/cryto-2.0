@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <nav className="bg-black p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white font-bold text-lg lg:text-xl header">Crypto Sphere</Link>
+        <Link to="/" className="text-white font-bold text-lg lg:text-xl header">Crypto 2.0</Link>
         <div className="lg:hidden">
           {showMenu ? (
             <MdClose onClick={toggleMenu} className="text-white text-2xl cursor-pointer" />

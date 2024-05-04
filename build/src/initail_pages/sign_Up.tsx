@@ -188,7 +188,7 @@ nav('/home')
     <div className="bg-black text-white min-h-screen font-sans">
       <div className="container mx-auto p-8">
         <h1 className="text-4xl font-bold mb-8 text">
-          <b className="header">Crypto Crypto sphere</b>
+          Sign Up for <b className="header">Crypto 2.0</b>
         </h1>
         <p className="text-red-500 mb-4">{err ? 'User already exists' : ''}</p>
         <form className="max-w-md" onSubmit={handleSubmit(submitData)}>

@@ -78,54 +78,53 @@ const Login = () => {
       {/* Login Form */}
       <div className="bg-black text-white min-h-screen font-sans">
         <div className="container mx-auto p-8">
-    <h1 className="text-4xl font-bold mb-8 text-center header">
-      Crypto Sphere 
-    </h1>
-    <p className="text-red-500 mb-4 text-center">{err ? 'Incorrect password!' : ''}</p>
+          <h1 className="text-4xl font-bold mb-8 header">
+            Login to Your Crypto 2.0 Account
+          </h1>
+          <p className="text-red-500 mb-4">{err ? 'incorrect password!' : ''}</p>
 
-    <form className="max-w-sm mx-auto" onSubmit={handleSubmit(sumitData)}>
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-lg mb-2">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          className="w-full py-2 px-3 bg-gray-800 text-white rounded-md outline-none"
-          {...register("email")}
-        />
-        <p className="text-red-500">{errors.email?.message}</p>
+          <form className="max-w-sm" onSubmit={handleSubmit(sumitData)}>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-lg mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full py-2 px-3 bg-gray-800 text-white rounded-md outline-none"
+                {...register("email")}
+              />
+              <p className="">{errors.email?.message}</p>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="block text-lg mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="w-full py-2 px-3 bg-gray-800 text-white rounded-md outline-none"
+                {...register("password")}
+              />
+              <p className="">{errors.password?.message}</p>
+            </div>
+            <button
+              type="submit"
+              className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-md font-bold transition-colors duration-300"
+              disabled={disableBtn}
+            >
+            {login?'Login...': 'Login' }  
+            </button>
+          </form>
+          {/* Sign up link */}
+          <div className="mt-4 text-lg">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-blue-400">
+              Sign up
+            </Link>
+          </div>
+        </div>
       </div>
-      <div className="mb-4">
-        <label htmlFor="password" className="block text-lg mb-2">
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          className="w-full py-2 px-3 bg-gray-800 text-white rounded-md outline-none"
-          {...register("password")}
-        />
-        <p className="text-red-500">{errors.password?.message}</p>
-      </div>
-      <button
-        type="submit"
-        className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-md font-bold transition-colors duration-300 block mx-auto"
-        disabled={disableBtn}
-      >
-        {login ? 'Logging in...' : 'Login'}
-      </button>
-    </form>
-    {/* Sign up link */}
-    <div className="mt-4 text-lg text-center">
-      Don't have an account?{" "}
-      <Link to="/signup" className="text-blue-400">
-        Sign up
-      </Link>
-    </div>
-  </div>
-</div>
-
     </>
   );
 };
