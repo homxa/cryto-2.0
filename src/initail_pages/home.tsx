@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import {  Navigate } from "react-router-dom";
 
 const Home = () => {
   // checking if the user is logind to return to Home page

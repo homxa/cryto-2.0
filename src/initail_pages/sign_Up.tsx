@@ -116,11 +116,26 @@ const dispach = useDispatch()
         // if refer code match any user own then updating it
         const docId = gettenDoc.id;
         const preRefNumber = gettenDoc.data().referrals;
+        const prevTotal = gettenDoc.data().totalpoints 
         console.log(preRefNumber, "prev number");
         await updateDoc(doc(db, "userProfiles", docId), {
           referrals: preRefNumber + 1,
+          totalpoints: prevTotal + 50
         });
         console.log("Referrer referrals count updated successfully");
+
+
+        // putting how user earnded the point
+        const howEarndCollect = collection(db,'earned')
+    try {
+  
+  await addDoc(howEarndCollect,{
+    earnedBy: `Referring a friend +${50} points `,
+    userId: gettenDoc.data().userId
+  })
+} catch (error) {
+ console.log('faild to add how point is been earned', error) 
+}
       } else {
         console.error("Referrer code not found");
       }
@@ -163,6 +178,8 @@ const dispach = useDispatch()
         points: 0,
         referrals: 0,
         referralCode: referralCode,
+        totalpoints: 0,
+
       });
 
       // If referrer code provided, update referrer's referrals count

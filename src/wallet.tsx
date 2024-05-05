@@ -1,7 +1,10 @@
 import {  Navigate } from 'react-router-dom';
 import { BsWallet } from "react-icons/bs";
 import { MdStars } from "react-icons/md";
-import { auth } from './auth/cofig/config';
+import { auth, db } from './auth/cofig/config';
+import Navbar from './loggin_succ/navbar';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 
 const Wallet = () => {
 // checking if the user is login elase return to login page
@@ -14,48 +17,84 @@ const Wallet = () => {
 
   const balance = 500; // Assuming the user's current balance is $500
 
-  const handleWithdrawal = () => {
-    // Implement withdrawal logic here
-    // Send the Solana wallet address to the server for processing
-    console.log('Withdrawal initiated');
-  };
+  // const handleWithdrawal = () => {
+  //   // Implement withdrawal logic here
+  //   // Send the Solana wallet address to the server for processing
+  //   console.log('Withdrawal initiated');
+  // };
 
   // Assuming you have access to user data like profile picture and name
   const userProfile = {
     profilePicture: "url_to_user_profile_picture",
     name: "John Doe"
   };
-
-  return (
-    <div className="bg-black text-white min-h-screen font-sans">
+const [userdetails, setUserdetails] = useState({})
+  useEffect(() => {
+    const collect = collection(db, "userProfiles");
+    const collectTime = query(collect, where("userId", "==", userId));
+    const unsubscribe = onSnapshot(collectTime, async (snap) => {
+      const posts = snap.docs.map((info) => ({
+        docId: info.id,
+        ...info.data(),
+      }));
+      const fill = posts[0]
+      setUserdetails(fill);
+    });
+  
    
-      <div className="container mx-auto p-8">
-        {/* User Profile Section */}
-        <div className="flex items-center mb-8">
-          <img src={userProfile.profilePicture} alt="User Profile" className="w-10 h-10 rounded-full mr-4" />
-          <h2 className="text-lg font-bold">{userProfile.name}</h2>
-        </div>
-        <div className="mb-8">
-          <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
-            <div className="flex items-center">
-              <BsWallet size={35} className="mr-2"/>
-              <h2 className="text-lg font-bold">Current Balance</h2>
-              <p className="text-3xl font-bold ml-2 flex items-center"><MdStars size={20} className="mr-1"/>{balance}</p>
-            </div>
+  
+    // Cleanup function
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const [walletAddressSubmitted, setWalletAddressSubmitted] = useState(false);
+
+// Function to handle withdrawal submission
+const handleWithdrawal = () => {
+  // Perform submission logic here
+  // Once submitted, set walletAddressSubmitted to true
+  setWalletAddressSubmitted(true);
+};
+
+return (
+  <div className="bg-black text-white min-h-screen font-sans">
+    <Navbar/>
+
+    <div className="container mx-auto p-8">
+      {/* User Profile Section */}
+      <div className="flex items-center mb-8">
+        <img src={userdetails.profilePic} alt="User Profile" className="w-10 h-10 rounded-full mr-4" />
+        <h2 className="text-lg font-bold">{userdetails?.userName}</h2>
+      </div>
+      <div className="mb-8">
+        <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
+          <div className="flex items-center">
+            <BsWallet size={35} className="mr-2"/>
+            <h2 className="text-lg font-bold">Current Balance</h2>
+            <p className="text-3xl font-bold ml-2 flex items-center"><MdStars size={20} className="mr-1"/>{userdetails?.totalpoints}</p>
           </div>
         </div>
-        <h1 className="text-4xl font-bold mb-8">Distribution Method</h1>
+      </div>
+      <h1 className="text-4xl font-bold mb-8">Distribution Method</h1>
+      {walletAddressSubmitted ? (
+        <p className="text-lg">Wallet Address Successfully Linked! Stay tuned for the distribution date. We'll notify you as soon as it's available.</p>
+      ) : (
         <div className="flex flex-col gap-4">
           <p className="text-lg">Submit your Solana wallet Address:</p>
           <div className="flex flex-col md:flex-row gap-2">
             <input type="text" className="bg-gray-800 text-white py-2 px-4 rounded-md outline-none" placeholder="Enter Solana Wallet Address" />
             <button className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-md font-bold transition-colors duration-300" onClick={handleWithdrawal}>Submit</button>
           </div>
-          <p className="text-sm text-gray-400">Note: Please make sure to enter the correct Solana wallet address. Once submitted, the withdrawal cannot be reversed.</p>
+          <p className="text-sm text-gray-400">Note: Please make sure to enter the correct Solana wallet address. Once submitted, the withdrawal cannot be reversed. To be eligible, you have to be using our app, else you might get filtered as bot.</p>
         </div>
-      </div>
+      )}
     </div>
-  );
+  </div>
+);
+
+  
 };
 
 export default Wallet;

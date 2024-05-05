@@ -5,15 +5,36 @@
 
 
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { BsList } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
+import { loginSuccess } from '../auth/redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
+import { signOut } from 'firebase/auth';
+import { auth } from '../auth/cofig/config';
 
 const Navbar = () => {
+  const nav = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
+  const dispach = useDispatch()
+  const logOut = async()=>{
+    console.log('startrf')
+    try {
+      dispach(loginSuccess(null))
 
-  const toggleMenu = () => {
+      localStorage.removeItem('userId')
+    
+      await signOut(auth)
+      nav('/')
+      
+    } catch (error) {
+      console.log('failed to logout', error)
+    }
+      }
+ 
+ 
+      const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
@@ -44,8 +65,8 @@ const Navbar = () => {
             <Link to="/wallet" className="text-white">Wallet</Link>
             <Link to="/leaderboard" className="text-white">Leaderboard</Link>
           </div>
-          <div className="lg:ml-4">
-            <Link to="/logout" className="text-white">Logout</Link>
+          <div className="lg:ml-4"  >
+            <p  onClick={logOut} className="text-white">Logout</p>
           </div>
         </div>
       </div>

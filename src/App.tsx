@@ -25,7 +25,7 @@ function App() {
 
    <Router>
 {/* conditionally rendering navbr base on the user status */}
-   {userIds || userId ? <Navbar/>:   <Navbars/>}
+   {/* {userIds || userId ? <Navbar/>:   <Navbars/>} */}
   
   <Routes>
 
