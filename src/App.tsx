@@ -4,22 +4,23 @@ import './index.css'
 
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 
-import { useSelector } from 'react-redux'
+
 
 import Home from './initail_pages/home'
 import Login from './initail_pages/login'
 import SignUp from './initail_pages/sign_Up'
 import Signup from './loggin_succ/redirect'
-import { Navbars } from './initail_pages/navbar'
+
+
 import Homes from './loggin_succ/homes'
 import Points from './loggin_succ/point'
 import Wallet from './wallet'
 import Leaderboard from './loggin_succ/leaderboard'
-import Navbar from './loggin_succ/navbar'
+import PrivacyPolicyPage from './initail_pages/privacy'
+
 
 function App() {
-  const userIds = localStorage.getItem('userId')
-  const {userId} = useSelector((state:any)=> state.auth)
+ 
 
   return (
 
@@ -39,6 +40,8 @@ function App() {
   <Route path='/points' element={< Points/>}/>
   <Route path='/wallet' element={< Wallet/>}/>
   <Route path='/leaderboard' element={<Leaderboard/>}/>
+  <Route path='/policy' element={<PrivacyPolicyPage/>}/>
+
   </Routes>
 
   

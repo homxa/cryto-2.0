@@ -19,7 +19,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const dispach = useDispatch()
   const logOut = async()=>{
-    console.log('startrf')
+  
     try {
       dispach(loginSuccess(null))
 
@@ -54,8 +54,8 @@ const Navbar = () => {
             <Link to="/home" className="text-white mb-2">Home</Link>
             <Link to="/points" className="text-white mb-2">Points</Link>
             <Link to="/wallet" className="text-white mb-2">Wallet</Link>
-            <Link to="/leaderboard" className="text-white mb-2">Leaderboard</Link>
-            <Link to="/logout" className="text-white">Logout</Link>
+            <Link onClick={logOut} to="/leaderboard" className="text-white mb-2">Leaderboard</Link>
+            <p  className="text-white">Logout</p>
           </div>
         </div>
         <div className="lg:flex lg:items-center hidden">
@@ -65,9 +65,7 @@ const Navbar = () => {
             <Link to="/wallet" className="text-white">Wallet</Link>
             <Link to="/leaderboard" className="text-white">Leaderboard</Link>
           </div>
-          <div className="lg:ml-4"  >
             <p  onClick={logOut} className="text-white">Logout</p>
-          </div>
         </div>
       </div>
     </nav>

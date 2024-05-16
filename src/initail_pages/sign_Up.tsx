@@ -18,6 +18,7 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../auth/redux/slices/authSlice";
+import { Footer } from "../footer/footer";
 
 const SignUp = () => {
 // checking if the user is logind  return to Home page
@@ -36,7 +37,7 @@ const nav = useNavigate()
 const dispach = useDispatch()
   //validation checking
   const schema = yup.object().shape({
-    userName: yup.string().required("Please Enter Your User Name").max(8),
+    userName: yup.string().required("Please Enter Your User Name").max(6),
     email: yup
       .string()
       .email("Invalid email")
@@ -179,6 +180,13 @@ const dispach = useDispatch()
         referrals: 0,
         referralCode: referralCode,
         totalpoints: 0,
+        email: null,
+        lastEarnedTimestamp: null,
+        twitterLink: null,
+        telegramLink: null,
+        bio: null,
+        walletAdress: null
+
 
       });
 
@@ -205,7 +213,7 @@ nav('/home')
     <div className="bg-black text-white min-h-screen font-sans">
       <div className="container mx-auto p-8">
         <h1 className="text-4xl font-bold mb-8 text">
-          <b className="header">Crypto Crypto sphere</b>
+          <b className="header">Crypto sphere</b>
         </h1>
         <p className="text-red-500 mb-4">{err ? 'User already exists' : ''}</p>
         <form className="max-w-md" onSubmit={handleSubmit(submitData)}>
@@ -287,6 +295,7 @@ nav('/home')
           </Link>
         </p>
       </div>
+      <Footer/>
     </div>
   );
 };

@@ -4,12 +4,17 @@ import { auth, db } from "../auth/cofig/config";
 import { useEffect, useState } from "react";
 import Navbar from "./navbar";
 import {
+  
   collection,
-  getDocs,
+
+  
+
   onSnapshot,
   query,
+ 
   where,
 } from "firebase/firestore";
+import { Footer } from "../footer/footer";
 
 const Points = () => {
   // checking if the user is login elase return to login page
@@ -20,8 +25,8 @@ const Points = () => {
   }
 
   useEffect(() => {}, []);
-const [maxDisplayed, setMaxdisplayed] = useState(false)
-  const [userdetials, setUserdetails] = useState([]);
+
+  const [userdetials, setUserdetails] = useState<any>([]);
   const [howEarned, setHowEarned] = useState([]);
   useEffect(() => {
     const collect = collection(db, "userProfiles");
@@ -33,7 +38,7 @@ const [maxDisplayed, setMaxdisplayed] = useState(false)
       }));
       setUserdetails(posts);
 
-      console.log(posts);
+    
       //console.log(posts);
     });
     // const idss = setInterval(()=>{
@@ -51,7 +56,7 @@ const [maxDisplayed, setMaxdisplayed] = useState(false)
         }));
         setHowEarned(posts);
 
-        console.log(posts);
+       
         //console.log(posts);
       }
     );
@@ -65,56 +70,75 @@ const [maxDisplayed, setMaxdisplayed] = useState(false)
     };
   }, []);
 
-  const todayPoints = 100; // Assuming the user has 100 points
-  const referrals = 5; // Assuming the user has referred 5 people
-  const totalPoints = 1000;
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="bg-black text-white min-h-screen font-sans">
-      <Navbar />
+  <Navbar />
 
-      <div className="container mx-auto p-8">
-        <div className="mb-8">
-          <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
-            <div className="flex items-center">
-            {userdetials[0] && <h2 className="text-lg font-bold">Today's Points:</h2>}
-              <p className="text-lg md:text-xl lg:text-2xl font-bold ml-2">
-                {userdetials[0]?.points} {userdetials[0] && '/'}{userdetials[0]?.pointsLimit}
-              </p>{" "}
-              {/* Adjusted point size for smaller devices */}
-            </div>
-          </div>
-          <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
-            <div className="flex items-center">
-            {userdetials[0] && <h2 className="text-lg font-bold">Referrals:</h2>}
-              <p className="text-lg md:text-xl lg:text-2xl font-bold ml-2">
-                {userdetials[0]?.referrals}
-              </p>{" "}
-              {/* Adjusted point size for smaller devices */}
-            </div>
-          </div>
-          <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
-            <div className="flex items-center">
-            {userdetials[0] &&  <h2 className="text-lg font-bold">Total Points:</h2>}
-              <p className="text-lg md:text-xl lg:text-2xl font-bold ml-2">
-                {userdetials[0]?.totalpoints}
-              </p>{" "}
-              {/* Adjusted point size for smaller devices */}
-            </div>
-          </div>
+  <div className="container mx-auto p-8">
+    <div className="mb-8">
+      {/* Today's Points */}
+      <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
+        <div className="flex items-center">
+          {userdetials[0] && <h2 className="text-lg font-bold">Today's Points:</h2>}
+          <p className="text-lg md:text-xl lg:text-2xl font-bold ml-2">
+            {userdetials[0]?.points} {userdetials[0] && '/'}{userdetials[0]?.pointsLimit}
+          </p>{" "}
+          {/* Adjusted point size for smaller devices */}
         </div>
-        <h1 className="text-4xl font-bold mb-8">How You Earned Your Points</h1>
-        <ul className="list-disc ml-8 mb-8">
-        {howEarned?.slice(0, 12).map((how, index) => (
-  <li className="mb-2">{how?.earnedBy}</li>
-))}
-
-
-        
-          {/* Add more points earning activities */}
-        </ul>
+      </div>
+      {/* Referrals */}
+      <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
+        <div className="flex items-center">
+          {userdetials[0] && <h2 className="text-lg font-bold">Referrals:</h2>}
+          <p className="text-lg md:text-xl lg:text-2xl font-bold ml-2">
+            {userdetials[0]?.referrals}
+          </p>{" "}
+          {/* Adjusted point size for smaller devices */}
+        </div>
+      </div>
+      {/* Total Points */}
+      <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
+        <div className="flex items-center">
+          {userdetials[0] && <h2 className="text-lg font-bold">Total Points:</h2>}
+          <p className="text-lg md:text-xl lg:text-2xl font-bold ml-2">
+            {userdetials[0]?.totalpoints}
+          </p>{" "}
+          {/* Adjusted point size for smaller devices */}
+        </div>
+      </div>
+      {/* Referral Code */}
+      <div className="bg-gray-800 text-white py-4 px-6 rounded-md mb-4 flex justify-between items-center">
+        <div className="flex items-center">
+          <h2 className="text-lg font-bold">Referral Code:</h2>
+          <p className="text-lg md:text-xl lg:text-2xl font-bold ml-2">
+            {userdetials[0]?.referralCode}
+          </p>{" "}
+          {/* Adjusted point size for smaller devices */}
+        </div>
       </div>
     </div>
+    <h1 className="text-4xl font-bold mb-8">How You Earned Your Points</h1>
+    <ul className="list-disc ml-8 mb-8">
+      {howEarned?.slice(0, 5).map((how: any) => (
+        <li className="mb-2">{how?.earnedBy}</li>
+      ))}
+      {/* Add more points earning activities */}
+    </ul>
+  </div>
+  <Footer />
+</div>
+
   );
 };
 

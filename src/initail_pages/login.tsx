@@ -76,10 +76,10 @@ const Login = () => {
     
 
       {/* Login Form */}
-      <div className="bg-black text-white min-h-screen font-sans">
-        <div className="container mx-auto p-8">
+      <div className="bg-black text-white min-h-screen flex justify-center items-center font-sans">
+  <div className="container mx-auto p-8">
     <h1 className="text-4xl font-bold mb-8 text-center header">
-      Crypto Sphere 
+      Crypto Sphere
     </h1>
     <p className="text-red-500 mb-4 text-center">{err ? 'Incorrect password!' : ''}</p>
 
@@ -113,7 +113,7 @@ const Login = () => {
         className="bg-white hover:bg-gray-200 text-black py-2 px-4 rounded-md font-bold transition-colors duration-300 block mx-auto"
         disabled={disableBtn}
       >
-        {login ? 'Logging in...' : 'Login'}
+        {login ? 'Login...' : 'Login'}
       </button>
     </form>
     {/* Sign up link */}
@@ -125,6 +125,7 @@ const Login = () => {
     </div>
   </div>
 </div>
+
 
     </>
   );
